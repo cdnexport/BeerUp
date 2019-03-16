@@ -1,4 +1,6 @@
 class Store < ApplicationRecord
+  has_many :hours
+
   validates :name, :address, :city, :postal_code, :phone, :latitude, :longitude, presence: true
   validates :phone, format: {
     with: /\(\d{3}\) \d{3}-\d{4}/,
