@@ -1,3 +1,5 @@
+Product.destroy_all
+Category.destroy_all
 Hour.destroy_all
 Store.destroy_all
 
@@ -52,3 +54,48 @@ storesJson.each do |store|
     close: store["sunday_close"]
   )
 end
+
+beerCategory = Category.new(name: "Beer", parent:nil)
+if (!beerCategory.save)
+  beerCategory.errors.messages.each do |column, errors|
+    errors.each do |error|
+      puts "The #{column} property #{error}."
+    end
+  end
+end
+
+url = 'http://ontariobeerapi.ca/beers/'
+beerResponse = Net::HTTP.get(URI(url))
+beersJson = JSON.parse(beerResponse)
+
+beersJson.each do |beer|
+  category = Category.find_by_name(beer["category"])
+  if category.nil?
+    category = beerCategory.subcategory.new(name: beer['category'])
+  end
+  prod = Product.new(
+    id: beer["product_id"],
+    price: beer["price"],
+    alcohol: beer["abv"],
+    size: beer["size"],
+    country: beer["country"],
+    manufacturer: beer["brewer"],
+    image: beer["image_url"],
+    category: category,
+    description: beer["type"],
+    name: beer["name"]
+  )
+  if (!prod.save)
+    prod.errors.messages.each do |column, errors|
+      errors.each do |error|
+        puts "The #{column} property #{error}."
+      end
+    end
+    break
+  end
+end
+
+puts Store.count
+puts Hour.count
+puts Category.count
+puts Product.count

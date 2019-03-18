@@ -5,7 +5,6 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.float :price
       t.string :description
       t.float :alcohol
-      t.string :container
       t.string :country
       t.string :size
       t.string :manufacturer
