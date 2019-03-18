@@ -16,12 +16,11 @@ ActiveRecord::Schema.define(version: 2019_03_16_214825) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.integer "parent_id"
     t.string "name"
-    t.bigint "parent_category_id"
+    t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "hours", force: :cascade do |t|
@@ -39,7 +38,6 @@ ActiveRecord::Schema.define(version: 2019_03_16_214825) do
     t.float "price"
     t.string "description"
     t.float "alcohol"
-    t.string "container"
     t.string "country"
     t.string "size"
     t.string "manufacturer"
