@@ -20,13 +20,12 @@ const rails_api = {
         }
     },
 
-    getProducts: async function() {
-        const response = await fetch("http://localhost:3000/products.json");
+    getProducts: async function(page) {
+        const response = await fetch(`http://localhost:3000/products?page=${page}`);
 
         rails_api.checkResponse(response, 200);
-        return response.json();
+        return response.json(); 
     }
 };
 
 export default rails_api;
-  

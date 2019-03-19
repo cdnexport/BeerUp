@@ -27,7 +27,7 @@ export default {
     },
     created: async function() {
         try{
-            this.products = await ProductsApi.getProducts() || [];
+            this.products = await ProductsApi.getProducts(1) || [];
         } catch (error) {
             console.log(error);
         }
