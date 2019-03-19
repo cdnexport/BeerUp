@@ -23,6 +23,7 @@
             v-bind:class="{ 'is-loading': fetchOccuring }"
             @click="moreProducts"
             class="button is-info"
+            :disabled="noAdditionalProducts"
         >More</button>
     </div>
     <p v-else>No products.</p>
@@ -39,7 +40,8 @@ export default {
             products: [],
             initialLoadOngoing: true,
             page: 1,
-            fetchOccuring: false
+            fetchOccuring: false,
+            noAdditionalProducts: true
         };
     },
     created: async function() {
@@ -72,6 +74,17 @@ export default {
             }
             this.fetchOccuring = false;
             window.scrollTo(0,0);
+        },
+    },
+    watch: {
+        async products() {
+            try {
+                var additionalProducts = await ProductsApi.getProducts(this.page + 1);
+                this.noAdditionalProducts = additionalProducts.length == 0;
+            } catch (error) {
+                console.log(error);
+                this.noAdditionalProducts = true;
+            }    
         }
     }
 }
