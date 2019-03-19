@@ -19,6 +19,8 @@ gem 'webpacker','~> 3.3.1'
 # gem 'mini_racer', platforms: :ruby
 gem 'activeadmin'
 gem 'devise'
+
+gem 'country_select', '~> 4.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
