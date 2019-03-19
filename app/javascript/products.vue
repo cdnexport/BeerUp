@@ -3,14 +3,29 @@
     <bLoading
         :active.sync="initialLoadOngoing"
     />
+    <bLoading
+        :active.sync="fetchOccuring"
+    />
+
     <div v-if="products.length" class="tile is-ancestor" style="flex-wrap: wrap">
         <ImageTile v-for="(product, index) in products"
             :key="index"
             :image="product.image"
             :sub_title="product.name"
         />
+        <button
+            v-bind:class="{ 'is-loading': fetchOccuring }"
+            @click="backProducts"
+            class="button is-info"
+            :disabled="page == 1"
+        >Back</button>
+        <button
+            v-bind:class="{ 'is-loading': fetchOccuring }"
+            @click="moreProducts"
+            class="button is-info"
+        >More</button>
     </div>
-    <p v-else>No products found.</p>
+    <p v-else>No products.</p>
 </div>
 </template>
 
@@ -22,16 +37,42 @@ export default {
     data: function() {
         return {
             products: [],
-            initialLoadOngoing: true
+            initialLoadOngoing: true,
+            page: 1,
+            fetchOccuring: false
         };
     },
     created: async function() {
         try{
-            this.products = await ProductsApi.getProducts(1) || [];
+            this.products = await ProductsApi.getProducts(this.page) || [];
         } catch (error) {
             console.log(error);
         }
         this.initialLoadOngoing = false;
+    },
+    methods: {
+        moreProducts: async function () {
+            this.fetchOccuring = true;
+            this.page = this.page + 1;
+            try {
+                this.products = await ProductsApi.getProducts(this.page);
+            } catch (error) {
+                console.log(error);
+            }
+            this.fetchOccuring = false;
+            window.scrollTo(0,0);
+        },
+        backProducts: async function () {
+            this.fetchOccuring = true;
+            this.page = this.page - 1;
+            try {
+                this.products = await ProductsApi.getProducts(this.page);
+            } catch (error) {
+                console.log(error);
+            }
+            this.fetchOccuring = false;
+            window.scrollTo(0,0);
+        }
     }
 }
 </script>
