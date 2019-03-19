@@ -2,9 +2,11 @@
 <div id="products">
     <bLoading
         :active.sync="initialLoadOngoing"
+        :is-full-page="false"
     />
     <bLoading
         :active.sync="fetchOccuring"
+        :is-full-page="false"
     />
 
     <div v-if="products.length" class="tile is-ancestor" style="flex-wrap: wrap">
