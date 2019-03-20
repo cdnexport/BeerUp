@@ -1,16 +1,27 @@
 <template>
 <div id="products">
-    <b-select placeholder="Filter by Category"
-        @input="getProducts(page = 1)"
-        v-model="category"
-    >
-        <option 
-            v-for="(cat, index) in categories"
-            :value="cat.id"
-            :key="index">
-            {{ cat.name }}
-        </option>
-    </b-select>
+    <div class="screenTools">
+        <b-select placeholder="Filter by Category"
+            @input="getProducts(page = 1)"
+            v-model="category"
+            style="display: inline-block"
+        >
+            <option 
+                v-for="(cat, index) in categories"
+                :value="cat.id"
+                :key="index">
+                {{ cat.name }}
+            </option>
+        </b-select>
+        <button
+            v-if="category !== undefined"
+            @click="backToAll"
+            class="button"
+            style="display: inline-block"
+        >
+        Remove Filter
+        </button>
+    </div>
     <bLoading
         :active="initialLoadOngoing || fetchOccuring"
         :is-full-page="false"
@@ -60,7 +71,7 @@ export default {
             this.products = await ProductsApi.getProducts(this.page) || [];
             this.categories = await ProductsApi.getCategories() || [];
             this.categories.shift();
-            this.categories = [{name:"All"}].concat(this.categories);
+            // this.categories = [{name:"All"}].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
@@ -76,6 +87,11 @@ export default {
                 console.log(error);
             }
             this.fetchOccuring = false;
+        },
+        backToAll: function () { 
+            this.category = undefined;
+            this.page=1;
+            this.getProducts(this.page);
         }
     },
     watch: {
