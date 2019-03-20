@@ -2,26 +2,26 @@
 <div id="products">
     <div class="screenTools level">
         <div class="level-item">
-        <b-select placeholder="Filter by Category"
-            @input="getProducts(page = 1)"
-            v-model="category"
-            style="display: inline-block"
-        >
-            <option 
-                v-for="(cat, index) in categories"
-                :value="cat.id"
-                :key="index">
-                {{ cat.name }}
-            </option>
-        </b-select>
-        <button
-            v-if="category !== undefined"
-            @click="backToAll"
-            class="button"
-            style="display: inline-block"
-        >
-        Remove Filter
-        </button>
+            <b-select placeholder="Filter by Category"
+                @input="getProducts(page = 1)"
+                v-model="category"
+                style="display: inline-block"
+            >
+                <option 
+                    v-for="(cat, index) in categories"
+                    :value="cat.id"
+                    :key="index">
+                    {{ cat.name }}
+                </option>
+            </b-select>
+            <button
+                v-if="category !== undefined"
+                @click="backToAll"
+                class="button"
+                style="display: inline-block"
+            >
+            Remove Filter
+            </button>
         </div>
     </div>
     <bLoading
