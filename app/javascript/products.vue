@@ -64,6 +64,7 @@ export default {
             this.products = await ProductsApi.getProducts(this.page) || [];
             this.categories = await ProductsApi.getCategories() || [];
             this.categories.shift();
+            this.categories = [{name:"All"}].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
