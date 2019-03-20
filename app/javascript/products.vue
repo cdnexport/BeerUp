@@ -39,7 +39,7 @@
             :disabled="noAdditionalProducts"
         >More</button>
     </div>
-    <p v-else>No products.</p>
+    <p v-else-if="!products.length && !initialLoadOngoing">No products.</p>
 </div>
 </template>
 
