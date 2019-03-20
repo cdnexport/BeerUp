@@ -56,13 +56,14 @@ export default {
             fetchOccuring: false,
             noAdditionalProducts: true,
             categories: [],
-            category: ''
+            category: undefined
         };
     },
     created: async function() {
         try{
             this.products = await ProductsApi.getProducts(this.page) || [];
             this.categories = await ProductsApi.getCategories() || [];
+            this.categories.shift();
         } catch (error) {
             console.log(error);
         }
@@ -106,7 +107,7 @@ export default {
     watch: {
         async products() {
             try {
-                var additionalProducts = await ProductsApi.getProducts(this.page + 1);
+                var additionalProducts = await ProductsApi.getProducts(this.page + 1, this.category);
                 this.noAdditionalProducts = additionalProducts.length == 0;
             } catch (error) {
                 console.log(error);
