@@ -1,7 +1,7 @@
 <template>
 <div id="products">
     <b-select placeholder="Filter by Category"
-        @input="fetchProducts"
+        @input="getProducts(page = 1)"
         v-model="category"
     >
         <option 
@@ -28,13 +28,13 @@
         />
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
-            @click="backProducts"
+            @click="getProducts(page = page - 1)"
             class="button is-info"
             :disabled="page == 1"
         >Back</button>
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
-            @click="moreProducts"
+            @click="getProducts(page = page + 1)"
             class="button is-info"
             :disabled="noAdditionalProducts"
         >More</button>
@@ -70,31 +70,8 @@ export default {
         this.initialLoadOngoing = false;
     },
     methods: {
-        moreProducts: async function () {
+        getProducts: async function (page) {
             this.fetchOccuring = true;
-            this.page = this.page + 1;
-            try {
-                this.products = await ProductsApi.getProducts(this.page, this.category);
-            } catch (error) {
-                console.log(error);
-            }
-            this.fetchOccuring = false;
-            window.scrollTo(0,0);
-        },
-        backProducts: async function () {
-            this.fetchOccuring = true;
-            this.page = this.page - 1;
-            try {
-                this.products = await ProductsApi.getProducts(this.page, this.category);
-            } catch (error) {
-                console.log(error);
-            }
-            this.fetchOccuring = false;
-            window.scrollTo(0,0);
-        },
-        fetchProducts: async function () {
-            this.fetchOccuring = true;
-            this.page = 1;
             try {
                 this.products = await ProductsApi.getProducts(this.page, this.category);
             } catch (error) {
