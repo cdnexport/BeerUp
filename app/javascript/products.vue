@@ -1,5 +1,16 @@
 <template>
 <div id="products">
+    <b-select placeholder="Filter by Category"
+        @input="fetchProducts"
+        v-model="category"
+    >
+        <option 
+            v-for="(cat, index) in categories"
+            :value="cat.id"
+            :key="index">
+            {{ cat.name }}
+        </option>
+    </b-select>
     <bLoading
         :active.sync="initialLoadOngoing"
         :is-full-page="false"
@@ -43,12 +54,15 @@ export default {
             initialLoadOngoing: true,
             page: 1,
             fetchOccuring: false,
-            noAdditionalProducts: true
+            noAdditionalProducts: true,
+            categories: [],
+            category: ''
         };
     },
     created: async function() {
         try{
             this.products = await ProductsApi.getProducts(this.page) || [];
+            this.categories = await ProductsApi.getCategories() || [];
         } catch (error) {
             console.log(error);
         }
@@ -59,7 +73,7 @@ export default {
             this.fetchOccuring = true;
             this.page = this.page + 1;
             try {
-                this.products = await ProductsApi.getProducts(this.page);
+                this.products = await ProductsApi.getProducts(this.page, this.category);
             } catch (error) {
                 console.log(error);
             }
@@ -70,13 +84,24 @@ export default {
             this.fetchOccuring = true;
             this.page = this.page - 1;
             try {
-                this.products = await ProductsApi.getProducts(this.page);
+                this.products = await ProductsApi.getProducts(this.page, this.category);
             } catch (error) {
                 console.log(error);
             }
             this.fetchOccuring = false;
             window.scrollTo(0,0);
         },
+        fetchProducts: async function () {
+            this.fetchOccuring = true;
+            this.page = 1;
+            try {
+                this.products = await ProductsApi.getProducts(this.page, this.category);
+            } catch (error) {
+                console.log(error);
+            }
+            this.fetchOccuring = false;
+            window.scrollTo(0,0);
+        }
     },
     watch: {
         async products() {
