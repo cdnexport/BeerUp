@@ -1,6 +1,7 @@
 <template>
 <div id="products">
-    <div class="screenTools">
+    <div class="screenTools level">
+        <div class="level-item">
         <b-select placeholder="Filter by Category"
             @input="getProducts(page = 1)"
             v-model="category"
@@ -21,6 +22,7 @@
         >
         Remove Filter
         </button>
+        </div>
     </div>
     <bLoading
         :active="initialLoadOngoing || fetchOccuring"
@@ -106,3 +108,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+    .screenTools {
+        margin: 2em 0;
+    }
+</style>
