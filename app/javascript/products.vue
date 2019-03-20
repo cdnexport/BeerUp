@@ -12,11 +12,7 @@
         </option>
     </b-select>
     <bLoading
-        :active.sync="initialLoadOngoing"
-        :is-full-page="false"
-    />
-    <bLoading
-        :active.sync="fetchOccuring"
+        :active="initialLoadOngoing || fetchOccuring"
         :is-full-page="false"
     />
 
