@@ -1,5 +1,16 @@
 <template>
 <div id="products">
+    <b-select placeholder="Filter by Category"
+        @input="getProducts(page = 1)"
+        v-model="category"
+    >
+        <option 
+            v-for="(cat, index) in categories"
+            :value="cat.id"
+            :key="index">
+            {{ cat.name }}
+        </option>
+    </b-select>
     <bLoading
         :active.sync="initialLoadOngoing"
         :is-full-page="false"
@@ -17,18 +28,18 @@
         />
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
-            @click="backProducts"
+            @click="getProducts(page = page - 1)"
             class="button is-info"
             :disabled="page == 1"
         >Back</button>
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
-            @click="moreProducts"
+            @click="getProducts(page = page + 1)"
             class="button is-info"
             :disabled="noAdditionalProducts"
         >More</button>
     </div>
-    <p v-else>No products.</p>
+    <p v-else-if="!products.length && !initialLoadOngoing">No products.</p>
 </div>
 </template>
 
@@ -43,45 +54,38 @@ export default {
             initialLoadOngoing: true,
             page: 1,
             fetchOccuring: false,
-            noAdditionalProducts: true
+            noAdditionalProducts: true,
+            categories: [],
+            category: undefined
         };
     },
     created: async function() {
         try{
             this.products = await ProductsApi.getProducts(this.page) || [];
+            this.categories = await ProductsApi.getCategories() || [];
+            this.categories.shift();
+            this.categories = [{name:"All"}].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
         this.initialLoadOngoing = false;
     },
     methods: {
-        moreProducts: async function () {
+        getProducts: async function (page) {
             this.fetchOccuring = true;
-            this.page = this.page + 1;
+            window.scrollTo(0,0);
             try {
-                this.products = await ProductsApi.getProducts(this.page);
+                this.products = await ProductsApi.getProducts(this.page, this.category);
             } catch (error) {
                 console.log(error);
             }
             this.fetchOccuring = false;
-            window.scrollTo(0,0);
-        },
-        backProducts: async function () {
-            this.fetchOccuring = true;
-            this.page = this.page - 1;
-            try {
-                this.products = await ProductsApi.getProducts(this.page);
-            } catch (error) {
-                console.log(error);
-            }
-            this.fetchOccuring = false;
-            window.scrollTo(0,0);
-        },
+        }
     },
     watch: {
         async products() {
             try {
-                var additionalProducts = await ProductsApi.getProducts(this.page + 1);
+                var additionalProducts = await ProductsApi.getProducts(this.page + 1, this.category);
                 this.noAdditionalProducts = additionalProducts.length == 0;
             } catch (error) {
                 console.log(error);

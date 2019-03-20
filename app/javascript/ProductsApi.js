@@ -20,12 +20,26 @@ const rails_api = {
         }
     },
 
-    getProducts: async function(page) {
-        const response = await fetch(`http://localhost:3000/products?page=${page}`);
+    getProducts: async function(page, category) {
+        let response;
+        if(category !== undefined) {
+            response = await fetch(`http://localhost:3000/products?page=${page}&category=${category}`);
+        }
+        else {
+            response = await fetch(`http://localhost:3000/products?page=${page}`);
+        }
+
+        rails_api.checkResponse(response, 200);
+        return response.json(); 
+    },
+
+    getCategories: async function() {
+        let response = await fetch('http://localhost:3000/categories');
 
         rails_api.checkResponse(response, 200);
         return response.json(); 
     }
+
 };
 
 export default rails_api;
