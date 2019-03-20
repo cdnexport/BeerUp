@@ -72,13 +72,13 @@ export default {
     methods: {
         getProducts: async function (page) {
             this.fetchOccuring = true;
+            window.scrollTo(0,0);
             try {
                 this.products = await ProductsApi.getProducts(this.page, this.category);
             } catch (error) {
                 console.log(error);
             }
             this.fetchOccuring = false;
-            window.scrollTo(0,0);
         }
     },
     watch: {
