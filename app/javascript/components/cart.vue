@@ -26,14 +26,13 @@ export default {
     created: function () {
         eventBus.$on('add-to-cart', async (product) => {
             this.products.push(product);
-            await cartApi.addToCart(this.products[this.products.length -1]);
+            await cartApi.addToCart(product);
         });
         this.getItems();
     },
     methods: {
         getItems: async function () {
             this.products = await cartApi.getCart() || [];
-            console.log(await cartApi.getCart());
         }
     }
 }
