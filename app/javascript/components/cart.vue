@@ -19,6 +19,7 @@
             >X</button>
         </div>
         <button
+            v-if="products.length !== 0"
             class="button is-danger"
             @click="clearCart"
         >Clear Cart
