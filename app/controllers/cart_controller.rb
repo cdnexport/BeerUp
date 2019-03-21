@@ -23,6 +23,12 @@ class CartController < ApplicationController
     session[:cart] = []
   end
 
+  def remove_from_cart
+    session[:cart] = session[:cart].select do |product|
+      product['id'].to_i != params[:id].to_i
+    end
+  end
+
   private
     def initialize_session
       session[:cart] ||= []

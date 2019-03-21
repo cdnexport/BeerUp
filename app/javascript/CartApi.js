@@ -25,7 +25,9 @@ const rails_api = {
         }
     },
 
-    removeFromCart: function(product) {
+    removeFromCart: async function(product) {
+        this.params.method = "DELETE";
+        await fetch(`http://localhost:3000/cart/${product.id}/remove_from_cart`, this.params);
     },
 
     clearCart: async function() {

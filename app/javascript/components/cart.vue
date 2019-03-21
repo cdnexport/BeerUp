@@ -5,11 +5,19 @@
             v-if="!products.length"
         >No items in your cart! Add one!
         </p>
-        <p 
+        <div 
             v-else
             v-for="(product, index) in products" 
-            :key="index">
-        {{product.name}}</p>
+            :key="index"
+        >
+            <p>
+            {{product.name}}</p>
+            <button
+                class="button is-danger"
+                style="display: inline"
+                @click="removeItem(product)"
+            >X</button>
+        </div>
         <button
             class="button is-danger"
             @click="clearCart"
@@ -42,6 +50,10 @@ export default {
         clearCart: async function () {
             this.products = [];
             cartApi.clearCart();
+        },
+        removeItem: async function (product) {
+            this.products = this.products.filter(o => o.id !== product.id);
+            await cartApi.removeFromCart(product);
         }
     }
 }
