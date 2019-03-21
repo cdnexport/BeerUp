@@ -64,7 +64,7 @@ export default {
             fetchOccuring: false,
             noAdditionalProducts: true,
             categories: [],
-            category: undefined
+            category: 1
         };
     },
     created: async function() {
@@ -72,6 +72,7 @@ export default {
             this.products = await ProductsApi.getProducts(this.page) || [];
             this.categories = await ProductsApi.getCategories() || [];
             this.categories.shift();
+            this.categories = [{ id: 1, name: "All" }].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
@@ -89,7 +90,7 @@ export default {
             this.fetchOccuring = false;
         },
         backToAll: function () { 
-            this.category = undefined;
+            this.category = 1;
             this.page=1;
             this.getProducts(this.page);
         },

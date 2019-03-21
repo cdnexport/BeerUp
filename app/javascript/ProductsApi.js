@@ -22,11 +22,11 @@ const rails_api = {
 
     getProducts: async function(page, category) {
         let response;
-        if(category !== undefined) {
-            response = await fetch(`http://localhost:3000/products?page=${page}&category=${category}`);
+        if(category === 1 || category === undefined) {
+            response = await fetch(`http://localhost:3000/products?page=${page}`);
         }
         else {
-            response = await fetch(`http://localhost:3000/products?page=${page}`);
+            response = await fetch(`http://localhost:3000/products?page=${page}&category=${category}`);
         }
 
         rails_api.checkResponse(response, 200);
