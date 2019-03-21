@@ -1,13 +1,26 @@
 <template>
     <div>
-        <p v-on:add-to-cart="logIt">CART HERE</p>
+        <p 
+            v-for="(product, index) in products" 
+            :key="index">
+        {{product.name}}</p>
     </div>
 </template>
 
 <script>
 import ProductList from './products.vue';
-import Cart from './cart.vue';
+import eventBus from '../packs/eventBus.js';
 export default {
+    data: function () {
+        return {
+            products: []
+        }
+    },
+    created: function () {
+        eventBus.$on('add-to-cart', (product) => {
+            this.products.push(product);
+        });
+    },
     methods: {
         logIt: function(e) {
             console.log(e);

@@ -14,12 +14,13 @@
 </template>
 
 <script>
+    import eventBus from '../packs/eventBus.js';
     export default {
         props: ['product'],
 
         methods: {
             addToCart: function() {
-                this.$emit("add-to-cart", this.product);
+                eventBus.$emit('add-to-cart', this.product);
             }
         }
     }

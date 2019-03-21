@@ -92,7 +92,7 @@ export default {
             this.category = undefined;
             this.page=1;
             this.getProducts(this.page);
-        }
+        },
     },
     watch: {
         async products() {

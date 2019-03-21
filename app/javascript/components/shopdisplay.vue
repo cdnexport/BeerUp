@@ -13,7 +13,6 @@
 import ProductList from './products.vue';
 import Cart from './cart.vue';
 export default {
-    components: { ProductList, Cart },
-
+    components: { ProductList, Cart }
 }
 </script>
