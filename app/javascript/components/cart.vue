@@ -20,11 +20,6 @@ export default {
         eventBus.$on('add-to-cart', (product) => {
             this.products.push(product);
         });
-    },
-    methods: {
-        logIt: function(e) {
-            console.log(e);
-        }
     }
 }
 </script>
