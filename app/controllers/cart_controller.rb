@@ -11,7 +11,12 @@ class CartController < ApplicationController
   end
 
   def add_to_cart
-    session[:cart] << @product
+    prodJson = {
+      "id": @product.id,
+      "name": @product.name,
+      "price": @product.price
+    };
+    session[:cart] << prodJson
   end
 
   def destroy
