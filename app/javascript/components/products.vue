@@ -15,7 +15,7 @@
                 </option>
             </b-select>
             <button
-                v-if="category !== undefined"
+                v-if="category !== 1"
                 @click="backToAll"
                 class="button"
                 style="display: inline-block"
