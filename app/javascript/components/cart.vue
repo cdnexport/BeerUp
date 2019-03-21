@@ -10,6 +10,11 @@
             v-for="(product, index) in products" 
             :key="index">
         {{product.name}}</p>
+        <button
+            class="button is-danger"
+            @click="clearCart"
+        >Clear Cart
+        </button>
     </div>
 </template>
 
@@ -33,6 +38,10 @@ export default {
     methods: {
         getItems: async function () {
             this.products = await cartApi.getCart() || [];
+        },
+        clearCart: async function () {
+            this.products = [];
+            cartApi.clearCart();
         }
     }
 }

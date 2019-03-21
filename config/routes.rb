@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     member do
       post :add_to_cart
     end
+    collection do
+      post :clear_cart
+    end
   end
 
   root to: "home#index"

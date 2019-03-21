@@ -30,7 +30,7 @@ const rails_api = {
 
     clearCart: async function() {
         this.params.method = "POST";
-        await fetch('http://localhost:3000/cart/destroy', this.params);
+        await fetch('http://localhost:3000/cart/clear_cart', this.params);
     }
 };
 

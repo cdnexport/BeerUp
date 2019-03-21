@@ -19,7 +19,7 @@ class CartController < ApplicationController
     session[:cart] << prodJson
   end
 
-  def destroy
+  def clear_cart
     session[:cart] = []
   end
 
