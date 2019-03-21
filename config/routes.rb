@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :home
   resources :products, :defaults => {:format => :json}
   resources :categories, :defaults => {:format => :json}
+  resources :cart, :defaults => {:format => :json}, only: [:index, :destroy] do
+    member do
+      post :add_to_cart
+    end
+  end
 
   root to: "home#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
