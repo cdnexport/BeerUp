@@ -34,12 +34,6 @@ export default {
         } else {
             console.log("Geolocation is not supported");
         }
-    },
-    methods: {
-        storeNotFoundHandler: function (error) {
-            console.log(error);
-            this.storeNotFound = true;
-        }
     }
 }
 </script>
