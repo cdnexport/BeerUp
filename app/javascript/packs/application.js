@@ -17,3 +17,4 @@
 
 import '@babel/polyfill';
 import 'bulma';
+import './storeLocation';
