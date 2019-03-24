@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import storeSelect from "./storeSelectModal.vue";
+import storeSelect from "./storeSelect.vue";
 export default {
     components: {storeSelect},
     data: function() {
