@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
       request.remote_ip
     end
   end
+  private
+    def set_product
+      @product = Product.find(params[:id])
+    end
 end

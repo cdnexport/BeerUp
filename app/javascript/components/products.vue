@@ -15,7 +15,7 @@
                 </option>
             </b-select>
             <button
-                v-if="category !== undefined"
+                v-if="category !== 1"
                 @click="backToAll"
                 class="button"
                 style="display: inline-block"
@@ -30,10 +30,9 @@
     />
 
     <div v-if="products.length" class="tile is-ancestor" style="flex-wrap: wrap">
-        <ImageTile v-for="(product, index) in products"
+        <ProductTile v-for="(product, index) in products"
             :key="index"
-            :image="product.image"
-            :sub_title="product.name"
+            :product="product"
         />
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
@@ -53,10 +52,10 @@
 </template>
 
 <script>
-import ProductsApi from "ProductsApi.js";
-import ImageTile from "./components/ImageTile.vue";
+import ProductsApi from "../ProductsApi.js";
+import ProductTile from "./ProductTile.vue";
 export default {
-    components: { ImageTile },
+    components: { ProductTile },
     data: function() {
         return {
             products: [],
@@ -65,7 +64,7 @@ export default {
             fetchOccuring: false,
             noAdditionalProducts: true,
             categories: [],
-            category: undefined
+            category: 1
         };
     },
     created: async function() {
@@ -73,6 +72,7 @@ export default {
             this.products = await ProductsApi.getProducts(this.page) || [];
             this.categories = await ProductsApi.getCategories() || [];
             this.categories.shift();
+            this.categories = [{ id: 1, name: "All" }].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
@@ -90,10 +90,10 @@ export default {
             this.fetchOccuring = false;
         },
         backToAll: function () { 
-            this.category = undefined;
+            this.category = 1;
             this.page=1;
             this.getProducts(this.page);
-        }
+        },
     },
     watch: {
         async products() {

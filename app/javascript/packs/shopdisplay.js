@@ -1,6 +1,6 @@
 import TurbolinksAdapter from 'vue-turbolinks';
 import Vue from 'vue';
-import products from '../products.vue';
+import shopdisplay from '../components/shopdisplay.vue';
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 
@@ -8,12 +8,12 @@ Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
 
 document.addEventListener('turbolinks:load', () => {
-    const el = document.getElementById('product-list');
+    const el = document.getElementById('shopdisplay');
 
     if(el != null) {
         const app = new Vue({
             el,
-            render: h => h(products)
+            render: h => h(shopdisplay)
         });
     }
 });
