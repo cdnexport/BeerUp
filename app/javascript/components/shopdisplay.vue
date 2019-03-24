@@ -1,5 +1,5 @@
 <template>
-    <div class="columns">
+    <div class="columns shopdisplay">
         <div class="column">
             <ProductList />
         </div>
@@ -16,3 +16,8 @@ export default {
     components: { ProductList, Cart }
 }
 </script>
+<style scoped>
+    .shopdisplay {
+        margin-top: 2.5rem;
+    }
+</style>

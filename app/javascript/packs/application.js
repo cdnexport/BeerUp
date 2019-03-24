@@ -17,4 +17,21 @@
 
 import '@babel/polyfill';
 import 'bulma';
-import './storeLocation';
+import main from '../components/app.vue';
+import Vue from 'vue';
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
+import TurbolinksAdapter from 'vue-turbolinks';
+
+Vue.use(TurbolinksAdapter);
+Vue.use(Buefy);
+document.addEventListener('turbolinks:load', () => {
+    const el = document.getElementById('app');
+
+    if(el != null) {
+        const app = new Vue({
+            el,
+            render: h => h(main)
+        });
+    }
+});
