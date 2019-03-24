@@ -7,15 +7,17 @@
             Fetching store.
         </p>
         <div v-else>
-            <p>
-                Unable to get closest store.
-            </p>
+            <storeSelect 
+                @store-chosen="chosenStore"
+            />
         </div>
     </div>
 </template>
 
 <script>
+import storeSelect from "./storeSelectModal.vue";
 export default {
+    components: {storeSelect},
     data: function() {
         return {
             position: null,
@@ -45,6 +47,9 @@ export default {
             } else {
                 console.log("Geolocation is not supported");
             }
+        },
+        chosenStore: function (store) {
+            this.store = store;
         }
     }
 }
