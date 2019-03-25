@@ -16,18 +16,18 @@
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item">
+                    <router-link to="/" class="navbar-item">
                         Beer
-                    </a>
+                    </router-link>
                     <a class="navbar-item">
                         Stores
                     </a>
-                    <a class="navbar-item">
+                    <router-link to="/about" class="navbar-item">
                         About
-                    </a>
-                    <a class="navbar-item">
+                    </router-link>
+                    <router-link to="/contact" class="navbar-item">
                         Contact
-                    </a>
+                    </router-link>
                 </div>
 
                 <div class="navbar-end">

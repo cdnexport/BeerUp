@@ -10,6 +10,7 @@
     "eslint-plugin-react": "^7.12.4",
     "vue": "^2.6.9",
     "vue-loader": "^15.7.0",
+    "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.6.9",
     "vue-turbolinks": "^2.0.4"
   },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <navmenu />
-        <shopdisplay />
+        <router-view></router-view>
     </div>
 </template>
 
