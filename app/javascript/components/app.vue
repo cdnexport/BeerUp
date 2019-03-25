@@ -7,8 +7,7 @@
 
 <script>
 import navmenu from './menu.vue';
-import shopdisplay from './shopdisplay.vue';
 export default {
-    components: {navmenu, shopdisplay}
+    components: {navmenu}
 }
 </script>

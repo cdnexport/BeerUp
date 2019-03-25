@@ -7,7 +7,7 @@
                 BeerUp
                 </a>
                 <storeLocation />
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <a role="button" id="hamburger" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -16,17 +16,26 @@
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <router-link to="/" class="navbar-item">
-                        Beer
+                    <router-link
+                         to="/" 
+                         v-on:click.native="closeMenu"
+                         class="navbar-item">
+                    Beer
                     </router-link>
                     <a class="navbar-item">
                         Stores
                     </a>
-                    <router-link to="/about" class="navbar-item">
-                        About
+                    <router-link
+                        to="/about"
+                        v-on:click.native="closeMenu"
+                        class="navbar-item">
+                    About
                     </router-link>
-                    <router-link to="/contact" class="navbar-item">
-                        Contact
+                    <router-link 
+                        to="/contact" 
+                        v-on:click.native="closeMenu"
+                        class="navbar-item">
+                    Contact
                     </router-link>
                 </div>
 
@@ -61,6 +70,12 @@ export default {
                     $target.classList.toggle('is-active');
                 });
             });
+        }
+    },
+    methods: {
+        closeMenu: function () {
+            document.getElementById("navbarBasicExample").classList.toggle('is-active');
+            document.getElementById("hamburger").classList.toggle('is-active');
         }
     }
 }
