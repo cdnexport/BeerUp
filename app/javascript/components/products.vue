@@ -55,7 +55,6 @@ export default {
     created: async function() {
         try{
             this.products = await ProductsApi.getProducts(this.page) || [];
-            this.$on("category-change", this.categoryChange);
         } catch (error) {
             console.log(error);
         }
