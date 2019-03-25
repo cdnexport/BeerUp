@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'pages/get_links'
-  get 'pages/permalink'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :home
