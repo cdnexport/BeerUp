@@ -16,6 +16,7 @@
         <router-link
             class="button is-info"
             id="searchButton"
+            v-on:click.native="search"
             :to="{name: 'results', params: {category: category, searchdata: searchData}}">
         Search
         </router-link>
@@ -26,6 +27,7 @@
 
 <script>
 import categoryDropdown from "./categoryDropdown.vue";
+import eventBus from "../packs/eventBus.js";
 export default {
     components: {categoryDropdown},
     data: function () {
@@ -40,7 +42,10 @@ export default {
         },
         keyup: function (e) {
             if (e.keyCode !== 13) return;
-            document.getElementById("searchButton").click();
+            this.search();
+        },
+        search: function () {
+            eventBus.$emit("new-search", {data: this.searchData, category: this.category});
         }
     }
 }
