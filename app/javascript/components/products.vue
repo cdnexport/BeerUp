@@ -5,6 +5,7 @@
             <categoryDropdown 
                 @category-change="categoryChange"
                 @category-reset="backToAll"
+                v-bind:showRemoveButton="true"
             />
         </div>
     </div>

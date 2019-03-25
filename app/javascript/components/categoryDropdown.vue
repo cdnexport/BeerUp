@@ -13,7 +13,7 @@
         </option>
     </b-select>
     <button
-        v-if="category !== 1"
+        v-if="category !== 1 && showRemoveButton"
         @click="categoryReset"
         class="button"
         style="display: inline-block"
@@ -26,6 +26,7 @@
 import ProductsApi from "../ProductsApi.js";
 
 export default {
+    props: ["showRemoveButton"],
     data: function () {
         return {
             categories: [],
