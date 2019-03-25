@@ -16,6 +16,7 @@ import TurbolinksAdapter from 'vue-turbolinks';
 import VueRouter from 'vue-router';
 import about from '../components/about.vue';
 import contact from '../components/contact.vue';
+import searchResults from '../components/searchResults.vue';
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Buefy);
@@ -24,7 +25,8 @@ Vue.use(VueRouter)
 const routes = [
     {path: '/', name: 'home', component: shopdisplay },
     {path: '/about', name: 'about', component: about},
-    {path: '/contact', name: 'contact', component: contact}
+    {path: '/contact', name: 'contact', component: contact},
+    {path: '/results', name: 'results', component: searchResults, props: true}
 ];
 
 const router = new VueRouter({

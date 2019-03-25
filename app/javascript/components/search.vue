@@ -1,7 +1,9 @@
 <template>
 <div class="field has-addons navbar-item">
     <div class="control">
-        <input class="input" type="text" placeholder="Search">
+        <input 
+            v-model="searchData"
+            class="input" type="text" placeholder="Search">
     </div>
     <div class="control">
         <categoryDropdown 
@@ -10,9 +12,11 @@
         />
     </div>
     <div class="control">
-        <a class="button is-info">
-            Search
-        </a>
+        <router-link
+            class="button is-info"
+            :to="{name: 'results', params: {category: category, searchdata: searchData}}">
+        Search
+        </router-link>
     </div>
 </div>
 
@@ -24,7 +28,8 @@ export default {
     components: {categoryDropdown},
     data: function () {
         return {
-            category: 1
+            category: 1,
+            searchData: ''
         }
     },
     methods: {
