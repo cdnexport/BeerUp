@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :cart, :defaults => {:format => :json}, only: [:index, :destroy] do
     member do
       post :add_to_cart
+      post :increase_quantity
       delete :remove_from_cart
+      delete :reduce_quantity
     end
     collection do
       post :clear_cart
