@@ -73,7 +73,6 @@ export default {
         },
         addToCart: async function (product) {
             let prodIndex = this.products.findIndex(o => o.id === product.id);
-            console.log(prodIndex);
             if (prodIndex === -1) {
                 this.products.push({
                     "id": product.id,
