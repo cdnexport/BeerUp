@@ -39,7 +39,7 @@ export default {
         };
     },
     created: async function () {
-        this.getResults(this.searchdata, this.category);
+        this.getResults(this.category, this.searchdata);
         eventBus.$on("new-search", (data) => {
           this.getResults(data.category, data.data);
         });

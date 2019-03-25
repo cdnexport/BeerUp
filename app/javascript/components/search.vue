@@ -10,6 +10,7 @@
         <categoryDropdown 
             v-bind:showRemoveButton="false"
             @category-change="categoryChange"
+            v-model="category"
         />
     </div>
     <div class="control">
@@ -46,6 +47,7 @@ export default {
         },
         search: function () {
             eventBus.$emit("new-search", {data: this.searchData, category: this.category});
+            this.$router.push({name: 'results', params: {category: this.category, searchdata: this.searchData}});
         }
     }
 }
