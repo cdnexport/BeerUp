@@ -3,6 +3,7 @@
     <div class="control">
         <input 
             v-model="searchData"
+            @keyup="keyup"
             class="input" type="text" placeholder="Search">
     </div>
     <div class="control">
@@ -14,6 +15,7 @@
     <div class="control">
         <router-link
             class="button is-info"
+            id="searchButton"
             :to="{name: 'results', params: {category: category, searchdata: searchData}}">
         Search
         </router-link>
@@ -35,6 +37,10 @@ export default {
     methods: {
         categoryChange: function (category) {
             this.category = category;
+        },
+        keyup: function (e) {
+            if (e.keyCode !== 13) return;
+            document.getElementById("searchButton").click();
         }
     }
 }
