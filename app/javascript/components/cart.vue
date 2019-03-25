@@ -12,10 +12,16 @@
         >
             <p>
             {{product.name}}</p>
+            <p>{{product.quantity}}</p>
             <button
                 class="button is-danger"
                 style="display: inline"
-                @click="removeItem(product)"
+                @click="removeOne(product, index)"
+            >-</button>
+            <button
+                class="button is-danger"
+                style="display: inline"
+                @click="removeProduct(product)"
             >X</button>
         </div>
         <button
@@ -39,8 +45,7 @@ export default {
     },
     created: function () {
         eventBus.$on('add-to-cart', async (product) => {
-            this.products.push(product);
-            await cartApi.addToCart(product);
+            this.addToCart(product);
         });
         this.getItems();
     },
@@ -52,9 +57,42 @@ export default {
             this.products = [];
             cartApi.clearCart();
         },
-        removeItem: async function (product) {
+        removeProduct: async function (product) {
             this.products = this.products.filter(o => o.id !== product.id);
             await cartApi.removeFromCart(product);
+        },
+        removeOne: async function (product, index) {
+            product.quantity = product.quantity - 1;
+            if (product.quantity === 0) {
+                this.removeProduct(product);
+            }
+            else {
+                this.products[index] = product;
+                await cartApi.reduceProduct(product);
+            }
+        },
+        addToCart: async function (product) {
+            let prodIndex = this.products.findIndex(o => o.id === product.id);
+            console.log(prodIndex);
+            if (prodIndex === -1) {
+                this.products.push({
+                    "id": product.id,
+                    "name": product.name,
+                    "quantity": 1,
+                    "price": product.price});
+                await cartApi.addToCart(product);
+            }
+            else {
+                product.quantity = product.quantity + 1;
+                if (product.quantity === 0) {
+                    this.removeProduct(product);
+                }
+                else {
+                    this.products[prodIndex] = product;
+                    await cartApi.increaseProduct(product);
+                    this.getItems();
+                }
+            }
         }
     }
 }

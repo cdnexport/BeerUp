@@ -3,10 +3,8 @@ class CartController < ApplicationController
   before_action :set_product, only: [:update, :add_to_cart]
 
   def index
-    @carts = []
-    session[:cart].each do |prodHash|
-      @carts << Product.new.from_json(prodHash.to_json)
-    end
+    @carts = session[:cart]
+    pp @carts
     @carts
   end
 
@@ -14,7 +12,8 @@ class CartController < ApplicationController
     prodJson = {
       "id": @product.id,
       "name": @product.name,
-      "price": @product.price
+      "price": @product.price,
+      "quantity": 1
     };
     session[:cart] << prodJson
   end
@@ -26,6 +25,26 @@ class CartController < ApplicationController
   def remove_from_cart
     session[:cart] = session[:cart].select do |product|
       product['id'].to_i != params[:id].to_i
+    end
+  end
+
+  def reduce_quantity
+    session[:cart].each_with_index do |prod, index|
+      if (prod['id'] == params[:id].to_i)
+        prod['quantity'] = prod['quantity'].to_i - 1
+        session[:cart][index] = prod
+        break
+      end
+    end
+  end
+
+  def increase_quantity
+    session[:cart].each_with_index do |prod, index|
+      if (prod['id'] == params[:id].to_i)
+        prod['quantity'] = prod['quantity'].to_i + 1
+        session[:cart][index] = prod
+        break
+      end
     end
   end
 

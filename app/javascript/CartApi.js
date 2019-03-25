@@ -33,6 +33,16 @@ const rails_api = {
     clearCart: async function() {
         this.params.method = "POST";
         await fetch('http://localhost:3000/cart/clear_cart', this.params);
+    },
+
+    reduceProduct: async function (product) {
+        this.params.method = "DELETE";
+        await fetch(`http://localhost:3000/cart/${product.id}/reduce_quantity`, this.params);
+    },
+
+    increaseProduct: async function (product) {
+        this.params.method = "POST";
+        await fetch(`http://localhost:3000/cart/${product.id}/increase_quantity`, this.params);
     }
 };
 
