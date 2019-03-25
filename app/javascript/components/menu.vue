@@ -25,9 +25,9 @@
                     <router-link to="/about" class="navbar-item">
                         About
                     </router-link>
-                    <a class="navbar-item">
+                    <router-link to="/contact" class="navbar-item">
                         Contact
-                    </a>
+                    </router-link>
                 </div>
 
                 <div class="navbar-end">
