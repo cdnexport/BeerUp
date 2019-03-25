@@ -7,6 +7,7 @@
                 BeerUp
                 </a>
                 <storeLocation />
+                <search />
                 <a role="button" id="hamburger" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -57,8 +58,9 @@
 </template>
 <script>
 import storeLocation from './storeLocation.vue';
+import search from './search.vue';
 export default {
-    components: {storeLocation},
+    components: {storeLocation, search},
     mounted: function () {
         const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
         if ($navbarBurgers.length > 0) {
