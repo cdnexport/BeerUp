@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'pages/get_links'
-  get 'pages/permalink'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :home
@@ -21,7 +19,7 @@ Rails.application.routes.draw do
   match 'store/closest_by_ip' => 'store#closest_by_ip', :via => :get, :defaults => {:format => :json}
   match 'pages/:permalink', to: 'pages#permalink', as: 'permalink', :via => :get, :defaults => {:format => :json}
   match 'pages/get_links', to: 'pages#get_links', as: 'links', :via => :get, :defaults => {:format => :json}
-
+  match 'search/', to: 'search#search', as: 'search', :via => :get, :defaults => {:format => :json}
   root to: "home#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -2,26 +2,11 @@
 <div id="products">
     <div class="screenTools level">
         <div class="level-item">
-            <b-select placeholder="Filter by Category"
-                @input="getProducts(page = 1)"
-                v-model="category"
-                style="display: inline-block"
-            >
-                <option 
-                    v-for="(cat, index) in categories"
-                    :value="cat.id"
-                    :key="index">
-                    {{ cat.name }}
-                </option>
-            </b-select>
-            <button
-                v-if="category !== 1"
-                @click="backToAll"
-                class="button"
-                style="display: inline-block"
-            >
-            Remove Filter
-            </button>
+            <categoryDropdown 
+                @category-change="categoryChange"
+                @category-reset="backToAll"
+                v-bind:showRemoveButton="true"
+            />
         </div>
     </div>
     <bLoading
@@ -54,8 +39,9 @@
 <script>
 import ProductsApi from "../ProductsApi.js";
 import ProductTile from "./ProductTile.vue";
+import categoryDropdown from "./categoryDropdown.vue";
 export default {
-    components: { ProductTile },
+    components: { ProductTile, categoryDropdown },
     data: function() {
         return {
             products: [],
@@ -63,16 +49,12 @@ export default {
             page: 1,
             fetchOccuring: false,
             noAdditionalProducts: true,
-            categories: [],
             category: 1
         };
     },
     created: async function() {
         try{
             this.products = await ProductsApi.getProducts(this.page) || [];
-            this.categories = await ProductsApi.getCategories() || [];
-            this.categories.shift();
-            this.categories = [{ id: 1, name: "All" }].concat(this.categories);
         } catch (error) {
             console.log(error);
         }
@@ -94,6 +76,10 @@ export default {
             this.page=1;
             this.getProducts(this.page);
         },
+        categoryChange: function (category) {
+            this.category = category;
+            this.getProducts(this.page = 1);
+        }
     },
     watch: {
         async products() {
