@@ -6,6 +6,7 @@
     <div class="control">
         <categoryDropdown 
             v-bind:showRemoveButton="false"
+            @category-change="categoryChange"
         />
     </div>
     <div class="control">
@@ -20,6 +21,16 @@
 <script>
 import categoryDropdown from "./categoryDropdown.vue";
 export default {
-    components: {categoryDropdown}
+    components: {categoryDropdown},
+    data: function () {
+        return {
+            category: 1
+        }
+    },
+    methods: {
+        categoryChange: function (category) {
+            this.category = category;
+        }
+    }
 }
 </script>
