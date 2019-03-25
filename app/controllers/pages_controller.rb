@@ -5,6 +5,5 @@ class PagesController < ApplicationController
 
   def permalink
     @permalink = Page.find_by(permalink: params[:permalink])
-    pp @permalink
   end
 end
