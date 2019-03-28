@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_004215) do
+ActiveRecord::Schema.define(version: 2019_03_28_182642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,36 @@ ActiveRecord::Schema.define(version: 2019_03_25_004215) do
     t.index ["store_id"], name: "index_hours_on_store_id"
   end
 
+  create_table "order_products", force: :cascade do |t|
+    t.bigint "order_id"
+    t.float "Price"
+    t.integer "Quantity"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "OrderDate"
+    t.bigint "tax_rate_id"
+    t.float "Subtotal"
+    t.float "TaxAmount"
+    t.float "Total"
+    t.bigint "order_status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["tax_rate_id"], name: "index_orders_on_tax_rate_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -104,7 +134,20 @@ ActiveRecord::Schema.define(version: 2019_03_25_004215) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tax_rates", force: :cascade do |t|
+    t.float "PST"
+    t.float "GST"
+    t.float "HST"
+    t.boolean "Active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "hours", "stores"
+  add_foreign_key "order_products", "orders"
+  add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "tax_rates"
   add_foreign_key "products", "categories"
   add_foreign_key "stocks", "products"
   add_foreign_key "stocks", "stores"
