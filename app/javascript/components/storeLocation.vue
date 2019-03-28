@@ -34,7 +34,7 @@ export default {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     this.storeLoading = true;
                     this.position = position.coords;
-                    let tempStore = await fetch(`http://localhost:3000/store/closest_store?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                    let tempStore = await fetch(`store/closest_store?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                     this.store = (await tempStore.json())[0];
                     this.storeLoading = false;
                  },

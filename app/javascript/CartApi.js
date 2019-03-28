@@ -10,7 +10,7 @@ const rails_api = {
 
     getCart: async function() {
         this.params.method = "GET";
-        let response = await fetch('http://localhost:3000/cart', this.params);
+        let response = await fetch('cart', this.params);
         return response.json(); 
     },
 
@@ -18,7 +18,7 @@ const rails_api = {
         if (product === undefined) return;
         try {
             this.params.method = "POST";
-            await fetch(`http://localhost:3000/cart/${product.id}/add_to_cart/`, this.params);
+            await fetch(`cart/${product.id}/add_to_cart/`, this.params);
         } catch (error) {
             console.log(error);
             console.log(product);
@@ -27,22 +27,22 @@ const rails_api = {
 
     removeFromCart: async function(product) {
         this.params.method = "DELETE";
-        await fetch(`http://localhost:3000/cart/${product.id}/remove_from_cart`, this.params);
+        await fetch(`cart/${product.id}/remove_from_cart`, this.params);
     },
 
     clearCart: async function() {
         this.params.method = "POST";
-        await fetch('http://localhost:3000/cart/clear_cart', this.params);
+        await fetch('cart/clear_cart', this.params);
     },
 
     reduceProduct: async function (product) {
         this.params.method = "DELETE";
-        await fetch(`http://localhost:3000/cart/${product.id}/reduce_quantity`, this.params);
+        await fetch(`cart/${product.id}/reduce_quantity`, this.params);
     },
 
     increaseProduct: async function (product) {
         this.params.method = "POST";
-        await fetch(`http://localhost:3000/cart/${product.id}/increase_quantity`, this.params);
+        await fetch(`cart/${product.id}/increase_quantity`, this.params);
     }
 };
 

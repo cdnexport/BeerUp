@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         getClosestStores: async function () {
-            let stores = await fetch(`http://localhost:3000/store/closest_by_ip`);
+            let stores = await fetch(`store/closest_by_ip`);
             this.stores = await stores.json();
         },
         chosenStore: function (store) {

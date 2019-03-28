@@ -12,10 +12,10 @@ const rails_api = {
         this.params.method = "GET";
         let response = null;
         if (category === 1) {
-            response = await fetch(`http://localhost:3000/search?data=${data}`, this.params);
+            response = await fetch(`search?data=${data}`, this.params);
         }
         else {
-            response = await fetch(`http://localhost:3000/search?data=${data}&category=${category}`, this.params);
+            response = await fetch(`search?data=${data}&category=${category}`, this.params);
         }
         return response.json(); 
     },

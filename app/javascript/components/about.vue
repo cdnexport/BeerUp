@@ -18,7 +18,7 @@ export default {
         };
     },
     created: async function () {
-        let page = await fetch("http://localhost:3000/pages/about");
+        let page = await fetch("pages/about");
         page = await page.json();
         this.title = page.title;
         this.content = page.content;
