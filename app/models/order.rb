@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  belongs_to :Tax
+  belongs_to :tax_rate
   belongs_to :OrderStatus
 
   validates :orderdate, :tax, :subtotal, :taxamount, :total, :orderstatus, presence: true

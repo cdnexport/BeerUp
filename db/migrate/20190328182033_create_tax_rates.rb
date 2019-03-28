@@ -4,7 +4,7 @@ class CreateTaxRates < ActiveRecord::Migration[5.2]
       t.float :PST
       t.float :GST
       t.float :HST
-      t.bool :Active
+      t.boolean :Active
 
       t.timestamps
     end
