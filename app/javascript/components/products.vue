@@ -18,6 +18,7 @@
         <ProductTile v-for="(product, index) in products"
             :key="index"
             :product="product"
+            :link="true"
         />
         <button
             v-bind:class="{ 'is-loading': fetchOccuring }"
