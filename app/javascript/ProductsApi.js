@@ -38,8 +38,12 @@ const rails_api = {
 
         rails_api.checkResponse(response, 200);
         return response.json(); 
-    }
+    },
 
+    getProduct: async function(id) {
+        let response = await fetch(`products/${id}`);
+        return response.json();
+    }
 };
 
 export default rails_api;
